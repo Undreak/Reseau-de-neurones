@@ -1,0 +1,22 @@
+* Projet de Physique Numerique: RESEAU DE NEURONES
+  Résumé : Ce projet consiste à créer un ensemble de réseaux de neurones, chacun capable de reconnaitre une lettre de l'alphabet.
+  Descriptif : Inspirés des neurones biologiques, les réseaux de neurones artificiels sont des systèmes linéaires optimisés grâce à une méthode d'apprentissage pour réaliser une tâche précise. Dans ce projet, on se propose de réaliser une tâche assez simple: reconnaitre des caractères.
+
+** Sources
+   file:///home/alexandre/Documents/PN/projet/docs/0505016.pdf un article général sur les réseaux de neurones
+   file:///home/alexandre/Documents/PN/projet/docs/CTP3.pdf un article en particulier sur une méthode à implémenter
+
+** Objectifs
+   Plusieurs objectifs
+*** TODO Binarization
+    Convertir des images de lettre en une matrice binaires de 1 et de 0 afin de pouvoir y appliquer des operation matricielle.
+    Etat actuel (26/09): la binarization fonctionne mais il reste encore a tester sur differents echantillons afin de voir si les resultats sont exploitale.
+
+*** TODO RN pour une lettre
+    Faire un reseau de neurones capable de reconnaitre une lettre en particulier, par exemple la lettre A.
+
+*** TODO RN pour plusieurs lettre
+    idem que plus haut mais avec plusieurs lettre dans un seul reseau de neurones.
+
+*** TODO RN pour des mots
+    L'objectif ici est de pouvoir detecter des mots et des espaces pour pouvoir numeriser des phrases manuscrite.
