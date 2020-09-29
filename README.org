@@ -8,15 +8,18 @@
 
 ** Objectifs
    Plusieurs objectifs
-*** TODO Binarization
+*** DONE Binarization
+    CLOSED: [2020-09-29 Tue 18:26]
     Convertir des images de lettre en une matrice binaires de 1 et de 0 afin de pouvoir y appliquer des operation matricielle.
     Etat actuel (26/09): la binarization fonctionne mais il reste encore a tester sur differents echantillons afin de voir si les resultats sont exploitale.
+    La binarization fonctionne et convertit bien une image en une matrice binaire de taille donne.
 
-*** TODO RN pour une lettre
-    Faire un reseau de neurones capable de reconnaitre une lettre en particulier, par exemple la lettre A.
+*** TODO Apprentissage Machine pour un neurone
+    L'apprentissage machine fonctionne, il suffit de lui donner une lettre et un nombre de fichier pour qu'une fonction calcule le poid W
 
-*** TODO RN pour plusieurs lettre
-    idem que plus haut mais avec plusieurs lettre dans un seul reseau de neurones.
+*** TODO Reseau de neuronne
+    Objectifs: plusieurs neurones avec un poid W correspondant chacun a une lettre.
+    Calcul des coefficicents: score du candidat, score ideal pour le poid-model et le quotient de reconnaissance.
 
 *** TODO RN pour des mots
     L'objectif ici est de pouvoir detecter des mots et des espaces pour pouvoir numeriser des phrases manuscrite.
