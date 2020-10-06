@@ -23,6 +23,7 @@
 *** TODO Reseau de neuronne
     Objectifs: plusieurs neurones avec un poid W correspondant chacun a une lettre.
     Calcul des coefficicents: score du candidat, score ideal pour le poid-model et le quotient de reconnaissance.
+    Il ne manque plus que les donnees pour pouvoir mettre en oeuvre le reseau de neuronnes.
 
 *** TODO RN pour des mots
     L'objectif ici est de pouvoir detecter des mots et des espaces pour pouvoir numeriser des phrases manuscrite.
