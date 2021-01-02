@@ -106,7 +106,7 @@ end = time.time()
 print(f"Temps d'execution du programme: {end - start} s\n")
 
 # AFFICHAGE DES RESULTATS
-print(Qstat/N)
+print(Qstat/Nlettres)
 plt.bar(alphabet,Qkstat/kk)
 plt.ylabel('Q')
 plt.title('taux de reconnaissance par lettre')
