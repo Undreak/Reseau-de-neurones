@@ -62,7 +62,7 @@ def Q(image):
 alphabet = np.array(['A','B','C','D','E','F','G','H','I','J','K','L','M',
                     'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
 
-num_images = len(labels_letters)
+num_images = 91200
 im_size = 28
 k = 26
 Wk = np.zeros((k,im_size,im_size))
@@ -76,7 +76,7 @@ print(f"Temps d'execution du programme: {end - start} s\n")
 images_letters_test, labels_letters_test = extract_test_samples('letters')
 
 # Test verifiant les performances du réseau de neurones
-num_images_test = len(labels_letters_test)
+num_images_test = 15200
 Qstat = 0   # statistique nous donnant le pourcentage de reussite du modèle
 Qkstat = np.zeros(k)    # la même mais pour chacune des lettres individuelle
 kk = np.zeros(k)    # nombre permettant de normaliser Qkstat
@@ -100,25 +100,16 @@ print(f"Temps d'execution du programme: {end - start} s\n")
 print(Qstat/num_images_test)
 plt.bar(alphabet,Qkstat/kk)
 plt.ylabel('Q')
-plt.title('taux de reconnaissance par lettre')
+plt.title('Quotient de reconnaissance par lettre')
 plt.savefig('images/Qkstat_letters.png')
 plt.clf()
 
-xk = np.zeros(k)
-for i in range(len(Qkreal)):
-    for j in range(len((Qkreal[i]))):      
-        if Qkreal[i][j] >= 0:
-            xk[i] += 1
-
 for i in range(k):
-    n = 0
-    y = np.zeros(int(xk[i]))
+    y = np.zeros(k)
     for j in range(len(Qkreal[i])):
         if Qkreal[i][j] >= 0:
-            y[n] = Qkreal[i][j]
-            n += 1
-    N, bins, pathces = plt.hist(y,bins=k)
-    plt.xticks(np.arange(0,k),alphabet)
+            y[int(Qkreal[i][j])] += 1
+    plt.bar(alphabet,y)
     plt.title(alphabet[i])
     plt.savefig('images/' + alphabet[i] + '_letters.png')
     plt.close()

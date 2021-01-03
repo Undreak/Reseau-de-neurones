@@ -109,25 +109,16 @@ print(f"Temps d'execution du programme: {end - start} s\n")
 print(Qstat/Nlettres)
 plt.bar(alphabet,Qkstat/kk)
 plt.ylabel('Q')
-plt.title('taux de reconnaissance par lettre')
+plt.title('Quotient de reconnaissance par lettre')
 plt.savefig('images/Qkstat.png')
 plt.clf()
 
-xk = np.zeros(k)
-for i in range(len(Qkreal)):
-    for j in range(len((Qkreal[i]))):      
-        if Qkreal[i][j] >= 0:
-            xk[i] += 1
-
 for i in range(k):
-    n = 0
-    y = np.zeros(int(xk[i]))
+    y = np.zeros(k)
     for j in range(len(Qkreal[i])):
         if Qkreal[i][j] >= 0:
-            y[n] = Qkreal[i][j]
-            n += 1
-    N, bins, pathces = plt.hist(y,bins=k)
-    plt.xticks(np.arange(0,k),alphabet)
+            y[int(Qkreal[i][j])] += 1
+    plt.bar(alphabet,y)
     plt.title(alphabet[i])
     plt.savefig('images/' + alphabet[i] + '.png')
     plt.close()
