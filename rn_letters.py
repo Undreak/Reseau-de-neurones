@@ -62,10 +62,11 @@ def Q(image):
 alphabet = np.array(['A','B','C','D','E','F','G','H','I','J','K','L','M',
                     'N','O','P','Q','R','S','T','U','V','W','X','Y','Z'])
 
-num_images = 91200
-im_size = 28
-k = 26
-Wk = np.zeros((k,im_size,im_size))
+num_images = 91200  # nombre d'images utilisé pour l'apprentissage,
+# on utilise le même nombre d'images que pour le dataset balanced
+im_size = 28    # taille des images
+k = 26  # nombres de caractères  reconnaitre
+Wk = np.zeros((k,im_size,im_size))  # initialisation de la matrice de poids
 for i in range(num_images):
     # ici on calcul la matrice de poid pour chacune des lettres en utilisant le dataset letters 
     Wk[int(labels_letters[i]) - 1] += learn(readim(images_letters[i]))
@@ -76,27 +77,27 @@ print(f"Temps d'execution du programme: {end - start} s\n")
 images_letters_test, labels_letters_test = extract_test_samples('letters')
 
 # Test verifiant les performances du réseau de neurones
-num_images_test = 15200
+num_images_test = 15200 # nombre d'images utilisé pour le test, 
+# on utilise le même nombre d'images que pour le dataset balanced
 Qstat = 0   # statistique nous donnant le pourcentage de reussite du modèle
 Qkstat = np.zeros(k)    # la même mais pour chacune des lettres individuelle
 kk = np.zeros(k)    # nombre permettant de normaliser Qkstat
-Qkreal = np.zeros((k,num_images_test)) - 1 # statistique mémorisant les choix de Q(images) pour identifier les érreurs
+Qkreal = np.zeros((k,num_images_test)) - 1 # statistique mémorisant les choix de Q(images) pour voir la répartition
 
 for i in range(int(num_images_test - 1)):
     if Q(images_letters_test[i]) == int(labels_letters_test[i] - 1): 
-        # on regarde si le resultat de Q(image) est correct et correspond au bon label
-        # on incrémente Qstat et Qkstat a chaque fois que Q(images) est correct
+            # on regarde si le resultat de Q(image) est correct et correspond au bon label
+            # on incrémente Qstat et Qkstat a chaque fois que Q(images) est correct
         Qstat += 1
         Qkstat[int(labels_letters_test[i] - 1)] += 1
     kk[int(labels_letters_test[i] - 1)] += 1  # on calcule la norme de Qkstat
     Qkreal[int(labels_letters_test[i] - 1)][i] = Q(images_letters_test[i])
-    # on mémorise le label renvoyé par Q(image) dans le bon label de Qkreal
-    # distribution des lettres
+        # on mémorise le label renvoyé par Q(image) dans le bon label de Qkreal
 
 end = time.time()
 print(f"Temps d'execution du programme: {end - start} s\n")
 
-# AFFICHAGE DES RESULTATS
+# AFFICHAGE ET ÉCRITURE DES RESULTATS
 print(Qstat/num_images_test)
 plt.bar(alphabet,Qkstat/kk)
 plt.ylabel('Q')

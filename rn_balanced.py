@@ -48,28 +48,28 @@ def Q(image):
         # on calcule ce quotient pour chacune des lettres à reconnaître
         for j in range(im_size):
             for l in range(im_size):
-                # on calcule le produit matricielle du poid Wk et de l'image I
+                # on calcule le produit matriciel du poid Wk et de l'image I
                 phik[i] += Wk[i][j][l]*I[j][l]
                 if Wk[i][j][l] > 0:
                     # on calcule la somme de tous les êlêments positif de Wk
                     muk[i] += Wk[i][j][l]
-        # on calcule le quotient de reconnaire pour une lettre k
+        # on calcule le quotient de reconnaissance pour une lettre k
         Qk[i] = phik[i]/muk[i]
     return np.argmax(Qk)    # renvoie la lettre avec le plus haut quotient de reconnaissance
 
 
-# alphabet utilisé, les lettres trop similaire entre majuscule/minuscule sont considere comme etant une seule lettre
+# alphabet utilisé, les lettres trop similaire entre majuscule/minuscule sont consideré comme etant la même lettre
 alphabet = np.array(['A','B','C','D','E','F','G','H','I','J','K','L','M',
                     'N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
                     'a','b','d','e','f','g','h','n','q','r','t'])
 
-num_images = len(labels_balanced)
-im_size = 28
-k = 37
-Wk = np.zeros((k,im_size,im_size))
+num_images = len(labels_balanced)   # nombre d'images utilisé pour l'apprentissage, on utilise toutes les images disponible
+im_size = 28    # taille des images
+k = 37  # nombres de caractères  reconnaitre
+Wk = np.zeros((k,im_size,im_size))  # initialisation de la matrice de poids
 for i in range(num_images):
-    # ici on calcul la matrice de poid pour chacune des lettres en utilisant le dataset balanced 
-    # on ignore les valeurs < 9 car ceux sont des chiffres dans ce dataset
+    # ici on calcule la matrice de poids pour chacune des lettres en utilisant le dataset balanced 
+    # on ignore les labels < 9 car se sont des chiffres dans ce dataset
     if labels_balanced[i] >= 9:
         Wk[int(labels_balanced[i]) - 10] += learn(readim(images_balanced[i]))
     
@@ -81,12 +81,12 @@ images_balanced_test, labels_balanced_test = extract_test_samples('balanced')
 start = time.time()
 
 # Test verifiant les performances du réseau de neurones
-num_images_test = len(labels_balanced_test)  
+num_images_test = len(labels_balanced_test)  # nombre d'images utilisé pour le test, on utilise toutes les images disponible
 Qstat = 0   # statistique nous donnant le pourcentage de reussite du modèle
 Qkstat = np.zeros(k)    # la même mais pour chacune des lettres individuelle
 kk = np.zeros(k)    # nombre permettant de normaliser Qkstat
-Qkreal = np.zeros((k,num_images_test)) - 1  # statistique mémorisant les choix de Q(images) pour identifier les érreurs
-Nlettres = 0
+Qkreal = np.zeros((k,num_images_test)) - 1  # statistique mémorisant les choix de Q(images) pour voir la répartition
+Nlettres = 0    # on compte le nombre de lettres testé
 
 for i in range(int(num_images_test - 1)):
     if labels_balanced_test[i] >= 9:   
@@ -99,13 +99,12 @@ for i in range(int(num_images_test - 1)):
         kk[int(labels_balanced_test[i] - 10)] += 1  # on calcule la norme de Qkstat
         Qkreal[int(labels_balanced_test[i] - 10)][i] = Q(images_balanced_test[i])
         # on mémorise le label renvoyé par Q(image) dans le bon label de Qkreal
-        # distribution des lettres
         Nlettres += 1
         
 end = time.time()
 print(f"Temps d'execution du programme: {end - start} s\n")
 
-# AFFICHAGE DES RESULTATS
+# AFFICHAGE ET ÉCRITURE DES RESULTATS
 print(Qstat/Nlettres)
 plt.bar(alphabet,Qkstat/kk)
 plt.ylabel('Q')
@@ -122,5 +121,3 @@ for i in range(k):
     plt.title(alphabet[i])
     plt.savefig('images/' + alphabet[i] + '.png')
     plt.close()
-
-# 37 minutes temps d'execution du programme
