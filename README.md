@@ -16,8 +16,13 @@ Réseaux de neurones capable de reconnaitre les lettres de l'alphabet à partir 
 
 ## Utilisation
 Créer le dossier qui contiendra les images
+
 `mkdir images`
+
 Puis
+
 `python rn_balanced`
+
 ou
+
 `python rn_letters`
