@@ -21,6 +21,8 @@ Créer le dossier qui contiendra les images
 
 Puis
 
-`python rn_balanced`
+```
+python rn_balanced
 
-`python rn_letters`
+python rn_letters
+```
