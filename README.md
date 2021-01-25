@@ -23,6 +23,4 @@ Puis
 
 `python rn_balanced`
 
-ou
-
 `python rn_letters`
